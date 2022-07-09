@@ -1,9 +1,9 @@
 type RootStackParamList = {
-    HomePage: undefined;
+    HomePage: {name:string};
     Exercises:undefined;
-    Home2:undefined;
-    SecondScreen2:undefined;
+    Stats:undefined;
     Settings:undefined;
+    LoginPage:undefined;
   }; 
 
   export default RootStackParamList

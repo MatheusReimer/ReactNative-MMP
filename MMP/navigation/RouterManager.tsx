@@ -16,19 +16,34 @@ export default function Navigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="HomePage" component={HomePage} options={{title:"Home" , tabBarShowLabel:false,
-                  tabBarIcon: ({ focused, color }) =>(
+        <Stack.Screen 
+        name="HomePage" 
+        component={HomePage} 
+        options={{title:"Home" , tabBarShowLabel:false,headerShown: false,tabBarIcon: ({ focused, color }) =>(
                   <AntDesign name="home" size={focused ? 27 : 24} color={focused ? focusedColor : notFocusedColor} />
-                )}} />
-        <Stack.Screen name="Exercises" component={ExercisesScreen}  options={{title:"Exercises",tabBarShowLabel:false, tabBarIcon: ({ focused, color }) => (
+                )}}
+        />
+        <Stack.Screen 
+        name="Exercises" 
+        component={ExercisesScreen}  
+        options={{title:"Exercises",tabBarShowLabel:false,headerShown: false, tabBarIcon: ({ focused, color }) => (
                   <AntDesign name="calendar" size={focused ? 27 : 24} color={focused ? focusedColor : notFocusedColor} />
-                )}} />
-        <Stack.Screen name="Home2" component={HomePage}  options={{title:"Exercises",tabBarShowLabel:false, tabBarIcon: ({ focused, color }) => (
+                )}} 
+        />
+        <Stack.Screen 
+        name="Stats" 
+        component={HomePage}  
+        options={{title:"Exercises",tabBarShowLabel:false,headerShown: false, tabBarIcon: ({ focused, color }) => (
                   <AntDesign name="linechart"size={focused ? 27 : 24} color={focused ? focusedColor : notFocusedColor} />
-                )}} />
-        <Stack.Screen name="Settings" component={HomePage} options={{title:"Exercises",tabBarShowLabel:false,   tabBarIcon: ({ focused, color }) => (
+                )}}
+        />
+        <Stack.Screen 
+        name="Settings" 
+        component={HomePage} 
+        options={{title:"Exercises",tabBarShowLabel:false, headerShown: false,  tabBarIcon: ({ focused, color }) => (
                   <AntDesign name="setting" size={focused ? 27 : 24} color={focused ? focusedColor : notFocusedColor} />
-                )}} />
+                )}} 
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
