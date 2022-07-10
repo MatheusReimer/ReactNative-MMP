@@ -1,19 +1,19 @@
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
-import { useFonts, TitanOne_400Regular } from '@expo-google-fonts/titan-one';
+import { useFonts, Sriracha_400Regular } from '@expo-google-fonts/sriracha';
 import { useState,useEffect,useCallback } from 'react';
 import { Text } from 'react-native';
 
 
 
-const TitanOne = ({text,fontsize,color,spacing}:{text:any,fontsize:any,color:any,spacing:any}) => {
+const Sriracha = ({text,fontsize,color,spacing}:{text:any,fontsize:any,color:any,spacing:any}) => {
   const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {
     (async () => {
       try {
         await SplashScreen.preventAutoHideAsync();
-        await Font.loadAsync({ TitanOne_400Regular});
+        await Font.loadAsync({ Sriracha_400Regular  });
       }
       catch {
         // handle error
@@ -35,8 +35,8 @@ const TitanOne = ({text,fontsize,color,spacing}:{text:any,fontsize:any,color:any
   }
 
   return (
-    <Text style={{fontFamily: 'TitanOne_400Regular',fontSize:fontsize,color:color,letterSpacing:spacing}}>{text}</Text>
+    <Text style={{fontFamily: 'Sriracha_400Regular',fontSize:fontsize,color:color,letterSpacing:spacing}}>{text}</Text>
     );
 }
 
-export default TitanOne;
+export default Sriracha;

@@ -13,7 +13,7 @@ import { Text } from 'react-native';
 
 
 
-const QuickSand =  ({text,fontsize,color}:{text:any,fontsize:any,color:any}) => {
+const QuickSand =  ({text,fontsize,color,flex}:{text:any,fontsize:any,color:any,flex:any}) => {
   const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const QuickSand =  ({text,fontsize,color}:{text:any,fontsize:any,color:any}) => 
   }
 
   return (
-    <Text style={{fontFamily: 'Quicksand_700Bold',fontSize:fontsize, color:color}}>{text}</Text>
+    <Text style={{fontFamily: 'Quicksand_700Bold',fontSize:fontsize, color:color,flex:flex}}>{text}</Text>
     );
 }
 

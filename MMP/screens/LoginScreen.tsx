@@ -1,8 +1,7 @@
 import * as React from 'react';
-import Home from '../components/Home/Home';
+import Login from '../components/Login/Login';
 import { StackNavigationProp } from '@react-navigation/stack';
 import RootStackParamList from "../navigation/StackManager"
-import Exercises from '../components/Exercises/Exercises';
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -13,10 +12,10 @@ type Props = {
 };
 
 
-const ExercisesScreen = ({navigation}: Props) =>{
+const LoginScreen = ({navigation}: Props) =>{
   return (
-    <Exercises/>
+    <Login></Login>
   )
 }
 
-export default ExercisesScreen;
+export default LoginScreen;

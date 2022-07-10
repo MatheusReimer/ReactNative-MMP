@@ -17,7 +17,7 @@ const styles = StyleSheet.create(
     },
     header:{
 
-       backgroundColor:"#68CB93",
+       backgroundColor:"#128B3B",
        height: '50%',
        borderBottomStartRadius:(Dimensions.get("window").height/8),
        borderBottomEndRadius:(Dimensions.get("window").height/8),
@@ -47,15 +47,13 @@ const styles = StyleSheet.create(
          
          height:"100%",
          width:"100%",
-         maxHeight:140,
-         maxWidth:140,
+         maxHeight:75,
+         maxWidth:75,
          resizeMode:"cover",
          
     },
     imgContainer:{
       height:"65%",
-     
-      
       alignItems:"center",
       justifyContent:"center",
     },
@@ -68,7 +66,7 @@ const styles = StyleSheet.create(
     },
     weekDayContainer:{
       marginTop:10,
-      backgroundColor:"#008037",
+      backgroundColor:"#128B3B",
       width:Dimensions.get("window").width/8,
       height: Dimensions.get("window").width/8,
       alignItems:"center",
@@ -104,12 +102,19 @@ const styles = StyleSheet.create(
    
     },
     exercisesEach:{
-      margin:30,
-      
-      justifyContent:"space-between",
+     margin:25,
+     width:"100%",
+      flex:1,
       flexDirection:"row",
-      alignItems:"center",
-      
+    },
+    hr:{
+      color: '##128B3B',
+      backgroundColor: '##128B3B',
+      height: 3,
+      borderColor : '##128B3B',
+      marginBottom:-30,
+
+ 
     }
     
 
