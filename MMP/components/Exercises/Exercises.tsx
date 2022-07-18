@@ -24,16 +24,24 @@ export default function Exercises() {
 
   let savedItems;
   let savedExercises;
-  let selectedWeekday_Index;
+  const [selectedWeekday_Index,setSelectedWeekday_Index]=useState(-1);
 
   const openExerciseListModal = (index:number) =>{
-    //saving array first
-    savedExercises = [...selectedExercise]
-    
     let selectedValue = selectedItems[index];
-    selectedWeekday_Index =items.map(({ value }) => value).indexOf(selectedValue)
-    setExerciseListModalVisible(() => !isExerciseListModalVisible)
+    setSelectedWeekday_Index(items.map(({ value }) => value).indexOf(selectedValue))
+    ///mudar os status de exericise
   }
+  React.useEffect(()=>{
+    setExerciseListModalVisible(() => !isExerciseListModalVisible)
+  },[selectedWeekday_Index])
+
+  React.useEffect(()=>{
+    if(fullData[selectedWeekday_Index]===undefined){
+      setExerciseValues([])
+    }else{
+      setExerciseValues(fullData[selectedWeekday_Index])
+    }
+  },[selectedWeekday_Index])
 
   const openModal = () => {
     savedItems = [...selectedItems];
@@ -51,9 +59,15 @@ export default function Exercises() {
 
   const acceptExercises = () => {
     savedExercises = [...exerciseValues]
-    setExerciseListModalVisible(()=>!isExerciseListModalVisible)
+    setFullData(prevState =>({
+      ...prevState,
+      [selectedWeekday_Index]:exerciseValues,    
+    }))
     setSelectedExercises(savedExercises)
+    
   }
+
+
   const cancelExercise = () => {
     setExerciseListModalVisible(()=>!isExerciseListModalVisible)
   }
@@ -75,12 +89,33 @@ export default function Exercises() {
     { label: "Sunday", value: "Sunday" },
   ]);
 
+  const [fullData,setFullData] = useState({})
   const [selectedExercise, setSelectedExercises] = useState([])
   const [openExerciseModal, setOpenExerciseModal] = useState(false);
   const [exerciseValues, setExerciseValues] = useState([]);
   const [exerciseItems, setExerciseItems] = useState([
     { label: "Bench Press", value: "BenchPress" },
+    { label: "Leg Press", value: "Leg Press" },
+    { label: "Inclined Bench Press", value: "Inclined Bench Press" },
+    { label: "Row", value: "Row" },
+    { label: "Conventional Deadlift", value: "Conventional Deadlift" },
+    { label: "Sumo Deadlift", value: "Sumo Deadlift" },
+    { label: "Pullup", value: "Pullup" },
+    { label: "Overhead Press", value: "Overhead Press" },
+    { label: "Hip Thrust", value: "Hip Thrust" },
   ]);
+
+  React.useEffect(() => {
+    let isMounted = true;
+    if (isMounted) {
+      setExerciseListModalVisible(()=>!isExerciseListModalVisible)
+      console.log(fullData)
+    }
+    return () => {
+      //when component unmounts, set isMounted to false
+      isMounted = false;
+    };
+  }, [selectedExercise]);
 
   const listRemoval = (index: number) => {
     let itemsCopy = [...value];
@@ -102,37 +137,42 @@ export default function Exercises() {
     });
   };
 
-  const list = () => {
-    return value.map((element, index) => {
-      return (
-        <View style={styles.chosenExerciseContainer} key={generateKey(element)}>
-          <View style={styles.chosenExercisesModal}>
-            <View style={styles.index}>
-              <QuickSand
-                color={"black"}
-                flex={0}
-                fontsize={18}
-                text={index + 1}
-              ></QuickSand>
+  
+    const list = React.useCallback(() => {
+      return value.map((element, index) => {
+        return (
+          <View style={styles.chosenExerciseContainer} key={generateKey(element)}>
+            <View style={styles.chosenExercisesModal}>
+              <View style={styles.index}>
+                <QuickSand
+                  color={"black"}
+                  flex={0}
+                  fontsize={18}
+                  text={index + 1}
+                ></QuickSand>
+              </View>
+              <View>
+                <QuickSand
+                  color={"black"}
+                  flex={0}
+                  fontsize={18}
+                  text={element}
+                ></QuickSand>
+              </View>
             </View>
-            <View>
-              <QuickSand
-                color={"black"}
-                flex={0}
-                fontsize={18}
-                text={element}
-              ></QuickSand>
+            <View style={styles.deleteIcon}>
+              <TouchableOpacity onPress={() => listRemoval(index)}>
+                <Feather name="trash" size={20} color="black" />
+              </TouchableOpacity>
             </View>
           </View>
-          <View style={styles.deleteIcon}>
-            <TouchableOpacity onPress={() => listRemoval(index)}>
-              <Feather name="trash" size={20} color="black" />
-            </TouchableOpacity>
-          </View>
-        </View>
-      );
-    });
-  };
+        );
+      });
+    },[value])
+
+
+
+
 
   return (
     <View style={styles.mainContainer}>
@@ -169,7 +209,7 @@ export default function Exercises() {
                 size={34}
                 color="#128B3B"
                 onPress={openModal}
-                style={{ position: "absolute", bottom: -15 }}
+                style={{ position: "absolute", bottom: -15,backgroundColor:"white", }}
               />
               <View style={styles.openedModal}>
                 <Modal isVisible={isModalVisible}>
