@@ -16,32 +16,49 @@ import { Modal } from "../Modal";
 import { useState } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import { ScrollView } from "react-native-gesture-handler";
+import useStateWithCallback from "../../hooks/useCallbackHook";
 
 
 export default function Exercises() {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [isExerciseListModalVisible, setExerciseListModalVisible] = React.useState(false);
-
+  
   let savedItems;
-  let savedExercises;
   const [selectedWeekday_Index,setSelectedWeekday_Index]=useState(-1);
 
-  const openExerciseListModal = (index:number) =>{
+  const openExerciseListModal = async(index:number) =>{
+    console.log("opening...")
+    
     let selectedValue = selectedItems[index];
-    setSelectedWeekday_Index(items.map(({ value }) => value).indexOf(selectedValue))
-    ///mudar os status de exericise
+    let mappedItem = items.map(({ value }) => value).indexOf(selectedValue)
+    console.log("mappedItem " + mappedItem)
+    await updateValuesNotUndefined(mappedItem).then
+    console.log("exerciseValues " + exerciseValues)
+    setExerciseListModalVisible(()=>!isExerciseListModalVisible)
   }
-  React.useEffect(()=>{
-    setExerciseListModalVisible(() => !isExerciseListModalVisible)
-  },[selectedWeekday_Index])
-
-  React.useEffect(()=>{
-    if(fullData[selectedWeekday_Index]===undefined){
-      setExerciseValues([])
-    }else{
-      setExerciseValues(fullData[selectedWeekday_Index])
+  /*
+  const updateSelectedWeek = (x:any) => {
+    return new Promise(async (resolve) => {
+      console.log("tentei")
+      await setSelectedWeekday_Index(x, resolve)
+      console.log("MODIFIQUEI ESSA PORRA" + selectedWeekday_Index)
+    });
+ }
+ */
+ const updateValuesNotUndefined = (selectedWeekday_Index:number) => {
+  setSelectedWeekday_Index(selectedWeekday_Index)
+  return new Promise((resolve) => {
+    console.log("selectedWeekDay_Index " + selectedWeekday_Index + " fullData: " + fullData[selectedWeekday_Index])
+    if(fullData[selectedWeekday_Index]!==undefined){
+      setExerciseValues(fullData[selectedWeekday_Index],resolve)
     }
-  },[selectedWeekday_Index])
+    else{
+      console.log("Ops, nothing here")
+      setExerciseValues([],resolve)
+    }
+  });
+}
+
 
   const openModal = () => {
     savedItems = [...selectedItems];
@@ -58,13 +75,14 @@ export default function Exercises() {
   };
 
   const acceptExercises = () => {
-    savedExercises = [...exerciseValues]
+    console.log("EOQ: " + selectedWeekday_Index + " " + exerciseValues)
     setFullData(prevState =>({
       ...prevState,
       [selectedWeekday_Index]:exerciseValues,    
     }))
-    setSelectedExercises(savedExercises)
-    
+    setExerciseListModalVisible(()=>!isExerciseListModalVisible)
+   
+
   }
 
 
@@ -90,9 +108,8 @@ export default function Exercises() {
   ]);
 
   const [fullData,setFullData] = useState({})
-  const [selectedExercise, setSelectedExercises] = useState([])
   const [openExerciseModal, setOpenExerciseModal] = useState(false);
-  const [exerciseValues, setExerciseValues] = useState([]);
+  const [exerciseValues, setExerciseValues] = useStateWithCallback([]);
   const [exerciseItems, setExerciseItems] = useState([
     { label: "Bench Press", value: "BenchPress" },
     { label: "Leg Press", value: "Leg Press" },
@@ -105,17 +122,12 @@ export default function Exercises() {
     { label: "Hip Thrust", value: "Hip Thrust" },
   ]);
 
-  React.useEffect(() => {
-    let isMounted = true;
-    if (isMounted) {
-      setExerciseListModalVisible(()=>!isExerciseListModalVisible)
-      console.log(fullData)
-    }
-    return () => {
-      //when component unmounts, set isMounted to false
-      isMounted = false;
-    };
-  }, [selectedExercise]);
+  
+
+
+
+
+
 
   const listRemoval = (index: number) => {
     let itemsCopy = [...value];
@@ -136,6 +148,10 @@ export default function Exercises() {
       );
     });
   };
+
+  const Decoy = () =>{
+    
+  }
 
   
     const list = React.useCallback(() => {
