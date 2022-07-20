@@ -84,15 +84,18 @@ const styles = StyleSheet.create(
         justifyContent:"center",
         
     },
+    wholeContainer:{
+        width:"100%",
+    },
     chosenExerciseContainer:{
         width:"100%",
-        justifyContent:"space-between",
+        justifyContent:"space-evenly",
         flexDirection:"row",
 
     },
     chosenExercisesModal:{
         backgroundColor:"white",
-        width:"80%",
+        width:"75%",
         marginBottom:10,
         paddingTop:15,
         paddingBottom:15,
@@ -228,7 +231,65 @@ const styles = StyleSheet.create(
     indexBtn:{
         position:"absolute",
         left:5,
-    }
+    },
+    quicksand:{
+        fontSize:20,
+        fontWeight:"600",
+    },
+    reps:{
+        width:"100%",
+        justifyContent:"space-evenly",
+        alignItems:"center",
+        flexDirection:"row",
+        marginBottom:10,
+        marginTop:10,
+    },
+    series:{
+        width:"100%",
+        justifyContent:"space-evenly",
+        alignItems:"center",
+        flexDirection:"row",
+        marginBottom:10,
+    },
+    decreaseOrIncreseBtn:{
+        backgroundColor:"white",
+        width:"20%",
+        
+        paddingTop:7,
+        paddingBottom:7,
+        
+        borderBottomWidth:0.5,
+        borderRadius: 10,
+        shadowColor: "#000000",
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        shadowOffset: {
+          height: 1,
+          width: 0
+        },
+        elevation:15,
+        alignItems:"center",
+        justifyContent:"center",
+        flexDirection:"row",
+    },
+    repsAndSeriesText:{
+        backgroundColor:"white",
+        width:"45%",
+        alignItems:"center",
+        justifyContent:"space-evenly",
+        flexDirection:"row",
+       
+    },
+    numberRepsAndSeries:{
+        height:40,
+        width:40,
+        alignItems:"center",
+        justifyContent:'center',
+        backgroundColor:"#68CB93",
+        borderRadius:50,
+  
+        
+    },
 
   });
 

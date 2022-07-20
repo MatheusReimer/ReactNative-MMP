@@ -3,6 +3,7 @@ import {
   View,
   Image,
   TouchableOpacity,
+  Text
 } from "react-native";
 import Sriracha from "../GeneralStyles/Sriracha";
 import QuickSand from "../GeneralStyles/Quicksand";
@@ -28,23 +29,21 @@ export default function Exercises() {
 
   const openExerciseListModal = async(index:number) =>{
     console.log("opening...")
-    
+    let mounted = true;
+    if(mounted){
     let selectedValue = selectedItems[index];
     let mappedItem = items.map(({ value }) => value).indexOf(selectedValue)
     console.log("mappedItem " + mappedItem)
+   
     await updateValuesNotUndefined(mappedItem).then
     console.log("exerciseValues " + exerciseValues)
+   
     setExerciseListModalVisible(()=>!isExerciseListModalVisible)
+    }else{
+      return () => mounted = false;
+    }
   }
-  /*
-  const updateSelectedWeek = (x:any) => {
-    return new Promise(async (resolve) => {
-      console.log("tentei")
-      await setSelectedWeekday_Index(x, resolve)
-      console.log("MODIFIQUEI ESSA PORRA" + selectedWeekday_Index)
-    });
- }
- */
+  
  const updateValuesNotUndefined = (selectedWeekday_Index:number) => {
   setSelectedWeekday_Index(selectedWeekday_Index)
   return new Promise((resolve) => {
@@ -75,7 +74,6 @@ export default function Exercises() {
   };
 
   const acceptExercises = () => {
-    console.log("EOQ: " + selectedWeekday_Index + " " + exerciseValues)
     setFullData(prevState =>({
       ...prevState,
       [selectedWeekday_Index]:exerciseValues,    
@@ -135,13 +133,20 @@ export default function Exercises() {
     setValue(itemsCopy);
   };
 
+
+  const exerciseListRemoval = (index:number) =>{
+    let itemsCopy = [...exerciseValues];
+    itemsCopy.splice(index, 1);
+    setExerciseValues(itemsCopy);
+  }
+
   const cardsList = () => {
     return selectedItems.map((element, index) => {
       return (
         <View style={styles.weekDayPlanContainer} key={generateKey(element)}>
           <TouchableOpacity style={styles.weekDayPlan} onPress={()=>openExerciseListModal(index)}>
-            <View style={styles.indexBtn}><QuickSand color={"black"} flex={0} fontsize={20} text={index+1}></QuickSand></View>
-            <View><QuickSand color={"black"} flex={0} fontsize={20} text={element}></QuickSand></View>
+            <View style={styles.indexBtn}><Text  style={styles.quicksand}>{index+1}</Text></View>
+            <View><Text style={styles.quicksand}>{element}</Text></View>
             <View style={styles.editBtn}><FontAwesome5 name="edit" size={20} color="black"/></View>
           </TouchableOpacity>
         </View>
@@ -149,12 +154,74 @@ export default function Exercises() {
     });
   };
 
-  const Decoy = () =>{
-    
-  }
 
+  const [reps,setReps] = useState([])
+  const [sets,setSets] = useState([])
+
+
+  const increaseOrDecreaseReps = (index:number,isIncreasing:boolean) =>{
+    let copy:any = [...reps]
+    console.log(copy[index])
+    if(copy[index]==undefined){
+      copy[index] = 0
+    }
+    console.log(copy[index] + " dps")
+    if(isIncreasing){copy[index] +=3;}
+    else if(!isIncreasing && copy[index]>0){copy[index]-=1}
+    setReps(copy)
+  }
   
-    const list = React.useCallback(() => {
+  const increaseOrDecreaseSets = (index:number,isIncreasing:boolean) => {
+    let copy:any = [...sets]
+    console.log(copy[index])
+    if(copy[index]==undefined || copy[index]<=0){
+      copy[index] = 0
+    }
+    console.log(copy[index] + " dps")
+    if(isIncreasing){copy[index] +=2;}
+    else if(!isIncreasing && copy[index]>0){copy[index]-=1}
+    setSets(copy)
+  }
+  
+  const exercisesList = () => {
+    return exerciseValues.map((element:any, index:any) => {
+      return (
+        <View  key={generateKey(element)} style={styles.wholeContainer}>
+        <View style={styles.chosenExerciseContainer}>
+          <View style={styles.chosenExercisesModal}>
+            <View>
+              <QuickSand
+                color={"black"}
+                flex={0}
+                fontsize={20}
+                text={element}
+              ></QuickSand>
+            </View>
+          </View>
+          <View style={styles.deleteIcon}>
+            <TouchableOpacity onPress={() => exerciseListRemoval(index)}>
+              <Feather name="trash" size={20} color="black" />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.reps}>
+          <TouchableOpacity style={styles.decreaseOrIncreseBtn} onPress={()=>increaseOrDecreaseReps(index,false)}><Ionicons name="remove" size={20} color="red"></Ionicons></TouchableOpacity>
+          <View style={styles.repsAndSeriesText}><QuickSand color={"black"} flex={0} fontsize={18} text={"Reps:"}></QuickSand><View style={styles.numberRepsAndSeries}><QuickSand color={"black"} flex={0} fontsize={18} text={reps[index]}></QuickSand></View></View>
+          <TouchableOpacity style={styles.decreaseOrIncreseBtn} onPress={()=>increaseOrDecreaseReps(index,true)}><Ionicons name="add" size={20} color="green"></Ionicons></TouchableOpacity>
+        </View>
+        <View style={styles.series}>
+          <TouchableOpacity style={styles.decreaseOrIncreseBtn} onPress={()=>increaseOrDecreaseSets(index,false)}><Ionicons name="remove" size={20} color="red"></Ionicons></TouchableOpacity>
+          <View style={styles.repsAndSeriesText}><QuickSand color={"black"} flex={0} fontsize={18} text={"Sets:"}></QuickSand><View style={styles.numberRepsAndSeries}><QuickSand color={"black"} flex={0} fontsize={18} text={sets[index]}></QuickSand></View></View>
+          <TouchableOpacity style={styles.decreaseOrIncreseBtn} onPress={()=>increaseOrDecreaseSets(index,true)}><Ionicons name="add" size={20} color="green"></Ionicons></TouchableOpacity>
+        </View>
+        </View>
+      );
+    });
+  };
+
+
+
+    const list = () => {
       return value.map((element, index) => {
         return (
           <View style={styles.chosenExerciseContainer} key={generateKey(element)}>
@@ -184,7 +251,7 @@ export default function Exercises() {
           </View>
         );
       });
-    },[value])
+    }
 
 
 
@@ -329,6 +396,11 @@ export default function Exercises() {
                         badgeDotColors={["black"]}
                       />
                     </Modal.Body>
+                    <ScrollView
+                      contentContainerStyle={styles.scrollViewModalBody}
+                    >
+                      {exercisesList()}
+                    </ScrollView>
                     <Modal.Footer>
                       <View style={styles.footerStyle}>
                         <TouchableOpacity style={styles.cancelBtn} onPress={cancelExercise}>
