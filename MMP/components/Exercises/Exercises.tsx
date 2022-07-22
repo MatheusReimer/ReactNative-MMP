@@ -12,6 +12,8 @@ import {
   Feather,
   Ionicons,
   FontAwesome5,
+
+  Entypo,
 } from "@expo/vector-icons";
 import { Modal } from "../Modal";
 import { useState } from "react";
@@ -23,36 +25,35 @@ import useStateWithCallback from "../../hooks/useCallbackHook";
 export default function Exercises() {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [isExerciseListModalVisible, setExerciseListModalVisible] = React.useState(false);
+  const [reps,setReps] = useState([])
+  const [sets,setSets] = useState([])
   
-  let savedItems;
+
   const [selectedWeekday_Index,setSelectedWeekday_Index]=useState(-1);
 
   const openExerciseListModal = async(index:number) =>{
-    console.log("opening...")
     let mounted = true;
     if(mounted){
     let selectedValue = selectedItems[index];
     let mappedItem = items.map(({ value }) => value).indexOf(selectedValue)
-    console.log("mappedItem " + mappedItem)
-   
-    await updateValuesNotUndefined(mappedItem).then
-    console.log("exerciseValues " + exerciseValues)
-   
+    await updatingExerciesValues(mappedItem).then
     setExerciseListModalVisible(()=>!isExerciseListModalVisible)
     }else{
       return () => mounted = false;
     }
   }
   
- const updateValuesNotUndefined = (selectedWeekday_Index:number) => {
+ const updatingExerciesValues = (selectedWeekday_Index:number) => {
   setSelectedWeekday_Index(selectedWeekday_Index)
   return new Promise((resolve) => {
-    console.log("selectedWeekDay_Index " + selectedWeekday_Index + " fullData: " + fullData[selectedWeekday_Index])
     if(fullData[selectedWeekday_Index]!==undefined){
-      setExerciseValues(fullData[selectedWeekday_Index],resolve)
+      setReps(fullData[selectedWeekday_Index].reps)
+      setSets(fullData[selectedWeekday_Index].sets)
+      setExerciseValues(fullData[selectedWeekday_Index].exercises,resolve)
     }
     else{
-      console.log("Ops, nothing here")
+      setReps([])
+      setSets([])
       setExerciseValues([],resolve)
     }
   });
@@ -60,12 +61,12 @@ export default function Exercises() {
 
 
   const openModal = () => {
-    savedItems = [...selectedItems];
+    let savedItems = [...selectedItems];
     setIsModalVisible(() => !isModalVisible);
   };
 
   const accept = () => {
-    savedItems = [...value];
+    let savedItems = [...value];
     setIsModalVisible(() => !isModalVisible);
     setSelectedItems(savedItems);
   };
@@ -74,24 +75,23 @@ export default function Exercises() {
   };
 
   const acceptExercises = () => {
+    if(reps.length != exerciseValues.length || sets.length != exerciseValues.length){
+      alert("One or more reps or sets are zero(0)") 
+      return
+    }
+
+
     setFullData(prevState =>({
       ...prevState,
-      [selectedWeekday_Index]:exerciseValues,    
+      [selectedWeekday_Index]:{"exercises":exerciseValues,"reps":reps,"sets":sets},
     }))
     setExerciseListModalVisible(()=>!isExerciseListModalVisible)
-   
-
   }
-
 
   const cancelExercise = () => {
     setExerciseListModalVisible(()=>!isExerciseListModalVisible)
   }
  
-  const generateKey = (pre: { pre: any }) => {
-    return `${pre}_${new Date().getTime()}`;
-  };
-
   const [selectedItems, setSelectedItems] = useState([]);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState([]);
@@ -120,19 +120,11 @@ export default function Exercises() {
     { label: "Hip Thrust", value: "Hip Thrust" },
   ]);
 
-  
-
-
-
-
-
-
   const listRemoval = (index: number) => {
     let itemsCopy = [...value];
     itemsCopy.splice(index, 1);
     setValue(itemsCopy);
   };
-
 
   const exerciseListRemoval = (index:number) =>{
     let itemsCopy = [...exerciseValues];
@@ -143,9 +135,9 @@ export default function Exercises() {
   const cardsList = () => {
     return selectedItems.map((element, index) => {
       return (
-        <View style={styles.weekDayPlanContainer} key={generateKey(element)}>
+        <View style={styles.weekDayPlanContainer} key={(element)}>
           <TouchableOpacity style={styles.weekDayPlan} onPress={()=>openExerciseListModal(index)}>
-            <View style={styles.indexBtn}><Text  style={styles.quicksand}>{index+1}</Text></View>
+            <View style={styles.indexBtn}><Text style={styles.quicksand}>{index+1}</Text></View>
             <View><Text style={styles.quicksand}>{element}</Text></View>
             <View style={styles.editBtn}><FontAwesome5 name="edit" size={20} color="black"/></View>
           </TouchableOpacity>
@@ -153,40 +145,31 @@ export default function Exercises() {
       );
     });
   };
-
-
-  const [reps,setReps] = useState([])
-  const [sets,setSets] = useState([])
-
-
-  const increaseOrDecreaseReps = (index:number,isIncreasing:boolean) =>{
+  
+  const increaseOrDecreaseReps = React.useCallback((index:number,isIncreasing:boolean) =>{
     let copy:any = [...reps]
-    console.log(copy[index])
     if(copy[index]==undefined){
       copy[index] = 0
     }
-    console.log(copy[index] + " dps")
     if(isIncreasing){copy[index] +=3;}
     else if(!isIncreasing && copy[index]>0){copy[index]-=1}
     setReps(copy)
-  }
+  },[reps])
   
-  const increaseOrDecreaseSets = (index:number,isIncreasing:boolean) => {
+  const increaseOrDecreaseSets = React.useCallback((index:number,isIncreasing:boolean) => {
     let copy:any = [...sets]
-    console.log(copy[index])
     if(copy[index]==undefined || copy[index]<=0){
       copy[index] = 0
     }
-    console.log(copy[index] + " dps")
-    if(isIncreasing){copy[index] +=2;}
+    if(isIncreasing){copy[index] +=1;}
     else if(!isIncreasing && copy[index]>0){copy[index]-=1}
     setSets(copy)
-  }
+  },[sets])
   
   const exercisesList = () => {
     return exerciseValues.map((element:any, index:any) => {
       return (
-        <View  key={generateKey(element)} style={styles.wholeContainer}>
+        <View  key={(element)} style={styles.wholeContainer}>
         <View style={styles.chosenExerciseContainer}>
           <View style={styles.chosenExercisesModal}>
             <View>
@@ -206,12 +189,12 @@ export default function Exercises() {
         </View>
         <View style={styles.reps}>
           <TouchableOpacity style={styles.decreaseOrIncreseBtn} onPress={()=>increaseOrDecreaseReps(index,false)}><Ionicons name="remove" size={20} color="red"></Ionicons></TouchableOpacity>
-          <View style={styles.repsAndSeriesText}><QuickSand color={"black"} flex={0} fontsize={18} text={"Reps:"}></QuickSand><View style={styles.numberRepsAndSeries}><QuickSand color={"black"} flex={0} fontsize={18} text={reps[index]}></QuickSand></View></View>
+          <View style={styles.repsAndSeriesText}><QuickSand color={"black"} flex={0} fontsize={18} text={"Reps:"}></QuickSand><View style={styles.numberRepsAndSeries}><QuickSand color={"black"} flex={0} fontsize={18} text={reps[index]===undefined ? 0 : reps[index]}></QuickSand></View></View>
           <TouchableOpacity style={styles.decreaseOrIncreseBtn} onPress={()=>increaseOrDecreaseReps(index,true)}><Ionicons name="add" size={20} color="green"></Ionicons></TouchableOpacity>
         </View>
         <View style={styles.series}>
           <TouchableOpacity style={styles.decreaseOrIncreseBtn} onPress={()=>increaseOrDecreaseSets(index,false)}><Ionicons name="remove" size={20} color="red"></Ionicons></TouchableOpacity>
-          <View style={styles.repsAndSeriesText}><QuickSand color={"black"} flex={0} fontsize={18} text={"Sets:"}></QuickSand><View style={styles.numberRepsAndSeries}><QuickSand color={"black"} flex={0} fontsize={18} text={sets[index]}></QuickSand></View></View>
+          <View style={styles.repsAndSeriesText}><QuickSand color={"black"} flex={0} fontsize={18} text={"Sets:"}></QuickSand><View style={styles.numberRepsAndSeries}><QuickSand color={"black"} flex={0} fontsize={18} text={sets[index]===undefined ? 0 : sets[index]}></QuickSand></View></View>
           <TouchableOpacity style={styles.decreaseOrIncreseBtn} onPress={()=>increaseOrDecreaseSets(index,true)}><Ionicons name="add" size={20} color="green"></Ionicons></TouchableOpacity>
         </View>
         </View>
@@ -219,12 +202,10 @@ export default function Exercises() {
     });
   };
 
-
-
     const list = () => {
       return value.map((element, index) => {
         return (
-          <View style={styles.chosenExerciseContainer} key={generateKey(element)}>
+          <View style={styles.chosenExerciseContainer} key={(element)}>
             <View style={styles.chosenExercisesModal}>
               <View style={styles.index}>
                 <QuickSand
@@ -252,10 +233,6 @@ export default function Exercises() {
         );
       });
     }
-
-
-
-
 
   return (
     <View style={styles.mainContainer}>
@@ -287,8 +264,8 @@ export default function Exercises() {
                 fontsize={20}
                 text={"Add or remove another plan"}
               ></QuickSand>
-              <Ionicons
-                name="add-circle-sharp"
+              <Entypo
+                name="arrow-with-circle-down"
                 size={34}
                 color="#128B3B"
                 onPress={openModal}
@@ -327,13 +304,11 @@ export default function Exercises() {
                         badgeDotColors={["black"]}
                       />
                     </Modal.Body>
-
                     <ScrollView
                       contentContainerStyle={styles.scrollViewModalBody}
                     >
                       {list()}
                     </ScrollView>
-
                     <Modal.Footer>
                       <View style={styles.footerStyle}>
                         <TouchableOpacity style={styles.cancelBtn} onPress={cancel}>
@@ -359,13 +334,8 @@ export default function Exercises() {
                     </Modal.Footer>
                   </Modal.Container>
                 </Modal>
-
-
-
                 <Modal isVisible={isExerciseListModalVisible}>
                   <Modal.Container>
-                   
-
                     <Modal.Header
                       title={
                         <QuickSand

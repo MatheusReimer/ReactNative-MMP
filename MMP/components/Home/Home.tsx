@@ -6,6 +6,7 @@ import Sriracha from '../GeneralStyles/Sriracha';
 import WeekDays from "../../constants/WeekDays";
 import { FlatList ,ScrollView} from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import DefaultHeader from '../DetachedComponents/DefaultHeader';
 
 export default function Home() {
 
@@ -61,21 +62,7 @@ export default function Home() {
   return (
     <View>   
         <View style={styles.container}>
-          <View style={styles.header}>
-              <View style={styles.topHeader}>
-                <View style={styles.leftTop}>
-                  <QuickSand text={"Lets workout"} fontsize={20} color={"white"} flex={0}></QuickSand>
-                  <Sriracha  text ={"Matheus Reimer"} fontsize={25} color={"white"} spacing={1}></Sriracha>
-                </View>
-                <View style={styles.rightTop}>
-                  <Image source={require("../../assets/images/logo.png")} style={styles.topHeaderImage}></Image>
-                </View>
-              
-              </View>
-              <View style={styles.imgContainer}>
-                <Image source={require("../../assets/images/logo.png")} style={styles.logo}></Image>
-              </View>
-          </View>
+          <DefaultHeader/>
           <View style={styles.mid}>
               <FlatList 
             numColumns={WeekDays.length}
@@ -96,10 +83,8 @@ export default function Home() {
            <View style={styles.hr}></View>
            <SafeAreaView >
            <ScrollView contentContainerStyle={{ flexGrow: 1}}>
-           
               {
                 exercies.map((c, index) => {
-                  
                   return(<View style={styles.exercisesEach} key={index}>
                     <QuickSand fontsize={12} text={c.name} color={"black"} flex={2}></QuickSand>
                     <QuickSand fontsize={12} text={c.reps} color={"black"} flex={1.4}></QuickSand>

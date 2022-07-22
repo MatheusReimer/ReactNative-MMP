@@ -1,22 +1,21 @@
 import * as React from 'react';
-import Home from '../components/Home/Home';
 import { StackNavigationProp } from '@react-navigation/stack';
 import RootStackParamList from "../navigation/StackManager"
-import Stats from "../components/Stats/Stats"
+import Settings from '../components/Settings/Settings';
 
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
-  'Stats'
+  'Settings'
 >;
 type Props = {
   navigation: ProfileScreenNavigationProp;
 };
 
 
-const StatsScreen = ({navigation}: Props) =>{
+const SettingsScreen = ({navigation}: Props) =>{
   return (
-    <Stats/>
+    <Settings/>
   )
 }
 
-export default StatsScreen;
+export default SettingsScreen;
