@@ -11,7 +11,22 @@ const styles = StyleSheet.create(
     flexDirection:"column",
     height: '100%',
     width: Dimensions.get('window').width,
-    backgroundColor:"white",}
+    backgroundColor:"white",},
+    
+    headerSettings:
+    {
+      width:"100%",
+      alignItems:"center",
+    },
+    btnContainer:{
+      width:"100%",
+      alignItems:"center",
+      justifyContent:"space-between",
+      flexDirection:"column",
+      flex:1,
+      marginBottom:30,
+      marginTop:30,
+    }
   });
 
   export default styles;
