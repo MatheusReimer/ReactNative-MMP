@@ -14,7 +14,7 @@ type Props = {
 
 const SettingsScreen = ({navigation}: Props) =>{
   return (
-    <Settings/>
+    <Settings navigation={navigation}/>
   )
 }
 

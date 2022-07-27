@@ -4,6 +4,7 @@ type RootStackParamList = {
     Stats:undefined;
     Settings:undefined;
     LoginPage:undefined;
+    RegisterPage:undefined;
   }; 
 
   export default RootStackParamList

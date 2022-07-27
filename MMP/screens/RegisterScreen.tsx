@@ -1,21 +1,20 @@
 import * as React from 'react';
-import Login from '../components/Login/Login';
+import Register from '../components/Register/Register';
 import { StackNavigationProp } from '@react-navigation/stack';
 import RootStackParamList from "../navigation/StackManager"
 
 type ProfileScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  'HomePage'
+  RootStackParamList
 >;
 type Props = {
   navigation: ProfileScreenNavigationProp;
 };
 
 
-const LoginScreen = ({navigation}: Props) =>{
+const RegisterScreen = ({navigation}: Props) =>{
   return (
-    <Login navigation={navigation}></Login>
+    <Register navigation={navigation}></Register>
   )
 }
 
-export default LoginScreen;
+export default RegisterScreen;

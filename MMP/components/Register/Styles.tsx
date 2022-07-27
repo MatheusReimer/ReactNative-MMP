@@ -8,47 +8,35 @@ const styles = StyleSheet.create(
    {
     fullContainer:{
         height:"100%",
-        backgroundColor:"#128B3B"
+        backgroundColor:"#128B3B",
     },
     touchable:{
         height:"100%",
         
     },
-    imageContainer:{
-        height:"40%",
-        alignItems:"center",
-     
-        justifyContent:"center",
-    },
-    logo:{
 
-        maxWidth:300,
-        maxHeight:300,
-        resizeMode:"contain",
-    },
     headerContainer:{
 
         alignItems:"flex-start",
         height:"10%",
         marginLeft:"10%",
+        marginTop:"15%"
     },
     header:{
         marginBottom:-25,
     },
     subHeader:{},
     loginFormContainer:{
-        height:"25%",
+        height:"45%",
         alignItems:"flex-start",
         justifyContent:"center",
         marginLeft:"15%",
-        marginTop:20,
     },
     loginEmail:{
         height:"15%",
         display:"flex",
         flexDirection:"row",
         alignItems:"center",
-        width:"100%"
     },
     loginPassword:{
         height:"15%",
@@ -87,9 +75,25 @@ const styles = StyleSheet.create(
         paddingBottom:10,
       },
       logoName:{
+        position:"absolute",
+        bottom:20,
+        width:"100%",
         alignItems:'center',
         justifyContent:"center",
-        marginTop:20,
+      },
+      gobackBtn:{
+        position:"relative",
+        height:"10%",
+        backgroundColor:"white",
+        alignItems:"flex-start",
+        justifyContent:"flex-end",
+      },
+      gobackBtnContainer:{
+        position:"absolute",
+        left:5,
+        top:40,
+        marginLeft:0,
+
       }
       
 

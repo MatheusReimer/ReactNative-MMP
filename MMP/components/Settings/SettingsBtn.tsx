@@ -10,7 +10,7 @@ export default function SettingsBtn(props:any) {
 
     return (
     
-        <TouchableOpacity style={styles.settingsBtn}>
+        <TouchableOpacity style={styles.settingsBtn} onPress={props.onPress}>
            <Image source={props.source} style={styles.imageIcon}></Image>
           <View style={styles.settingsBtnText}><QuickSand color={"black"} flex={0} fontsize={22} text={props.text}></QuickSand></View>
         </TouchableOpacity>
