@@ -17,7 +17,8 @@ import { AntDesign, Entypo, Ionicons, Zocial } from "@expo/vector-icons";
 import { TextInput } from "react-native-gesture-handler";
 import { KeyboardAvoidingView, TouchableWithoutFeedback } from "react-native";
 import Toast from "react-native-toast-message";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 export default function Register({ navigation }: { navigation: any }) {
   const [email, setEmail] = React.useState("");
@@ -61,10 +62,13 @@ export default function Register({ navigation }: { navigation: any }) {
     }
     auth
       .createUserWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
+      .then(async (userCredentials) => {
         const user = userCredentials.user;
         console.log("registrado");
         setIsRegistered(true);
+        await setDoc(doc(db, "users",email), {
+        email:email
+        })
       })
       .catch((error) => {
         if (error.code == "auth/email-already-in-use") {

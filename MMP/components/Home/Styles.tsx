@@ -65,11 +65,54 @@ const styles = StyleSheet.create(
       height: 3,
       borderColor : '##128B3B',
       marginBottom:-30,
+    },
+    day:{
+      width:"90%",
+      display:"flex",
+      flexDirection:'row',
+      justifyContent:"center"
+    },
+    calendarStyle:{
+      height:(Dimensions.get("window").height),
+      zIndex:9999,
+      width:(Dimensions.get("window").width),
+      position:"absolute",
+      top:0,
+      justifyContent:"center"
+      
+    },
+    addRegisterBtn:{
+      minHeight:200,
+      justifyContent:"center",
+      alignItems:"center",
+      width:Dimensions.get("window").width,
+      backgroundColor:"white"
+     },
+     exercisesRegisterBtn:{
+      marginBottom:15,
+      backgroundColor:"#68CB93",
+      borderRadius:50,
+      paddingLeft:35,
+      paddingRight:35,
+      paddingTop:10,
+      paddingBottom:10,
+      width:"70%"
+     },
+     exerciseInput:{
 
- 
-    }
-    
-
+     },
+     modalExercises:{
+      width:"100%",
+      flexDirection:"row",
+      justifyContent:"space-evenly",
+      marginTop:15,
+     },
+     textInput:{
+      borderColor:"green",
+      padding:2,
+      borderWidth:0.5,
+      backgroundColor:"#e6ffe6"
+     }
   });
 
   export default styles;

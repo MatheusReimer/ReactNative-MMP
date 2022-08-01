@@ -21,12 +21,7 @@ const DefaultHeader = () => {
             spacing={1}
           ></Sriracha>
         </View>
-        <View style={styles.rightTop}>
-          <Image
-            source={require("../../assets/images/logo.png")}
-            style={styles.topHeaderImage}
-          ></Image>
-        </View>
+
       </View>
       <View style={styles.imgContainer}>
         <Image
