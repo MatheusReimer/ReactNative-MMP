@@ -12,24 +12,21 @@ header:{
    
  },
  topHeader:{
+   marginTop:10,
     height:"35%", 
     flexDirection:"row",
   
    
  },
  leftTop:{
-    flex:0.7,
+    flex:1,
     alignItems:"center",
     justifyContent:"center",
     marginLeft:-20,
    
 
  },
- rightTop:{
-     flex:0.3,
-     alignItems:"center",
-     justifyContent:"center",
- },
+
  topHeaderImage:{
       
       height:"100%",

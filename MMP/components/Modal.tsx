@@ -14,10 +14,11 @@ export const Modal = ({
   return (
     <RNModal
       isVisible={isVisible}
-      animationInTiming={1000}
-      animationOutTiming={1000}
-      backdropTransitionInTiming={800}
-      backdropTransitionOutTiming={800}
+      animationInTiming={1500}
+      animationOutTiming={1500}
+      backdropTransitionInTiming={2000}
+      backdropTransitionOutTiming={1000}
+      backdropOpacity={100}
       {...props}>
       {children}
     </RNModal>

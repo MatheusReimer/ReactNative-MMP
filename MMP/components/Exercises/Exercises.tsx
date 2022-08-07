@@ -20,6 +20,9 @@ import { useState } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import { ScrollView } from "react-native-gesture-handler";
 import useStateWithCallback from "../../hooks/useCallbackHook";
+import { getAuth } from "firebase/auth";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../firebase";
 
 
 export default function Exercises() {
@@ -28,8 +31,49 @@ export default function Exercises() {
   const [reps,setReps] = useState([])
   const [sets,setSets] = useState([])
   
+  const WeekDayInitials = ["Mon", "Tue" , "Wed", "Thu" ,"Fri" ,"Sat" ,"Sun" ]
+  const WeekDayFull = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
 
   const [selectedWeekday_Index,setSelectedWeekday_Index]=useState(-1);
+
+  interface WeekPlans{
+    id:string,
+    exercise:string,
+    reps:string,
+    sets:string,
+    weekDay:string,
+    userEmail:string,
+  }
+
+  const [dbWeekDays,setDbWeekDays] = React.useState<WeekPlans[]>([]);
+
+  const getWeekDayExercises = async () => {
+      const email = getAuth().currentUser?.email;
+      const q = query(
+        collection(db, "userExercises"),
+        where("userEmail", "==", email),
+      );
+      const querySnapshot = await getDocs(q);
+      if(querySnapshot.empty){
+
+      }else{
+        querySnapshot.forEach(async (doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        setDbWeekDays((dbWeekDays) => [
+          ...dbWeekDays,
+          {
+            id:doc.data().id,
+            exercise: doc.data().exercise,
+            reps: doc.data().reps,
+            sets: doc.data().reps,
+            userEmail:doc.data().userEmail,
+            weekDay:doc.data().weekDay
+          },
+        ]);
+    })
+  }
+  }
+
 
   const openExerciseListModal = async(index:number) =>{
     let mounted = true;
@@ -61,7 +105,6 @@ export default function Exercises() {
 
 
   const openModal = () => {
-    let savedItems = [...selectedItems];
     setIsModalVisible(() => !isModalVisible);
   };
 
@@ -92,7 +135,7 @@ export default function Exercises() {
     setExerciseListModalVisible(()=>!isExerciseListModalVisible)
   }
  
-  const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedItems, setSelectedItems] = React.useState([]);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState([]);
   const [items, setItems] = useState([
@@ -165,6 +208,8 @@ export default function Exercises() {
     else if(!isIncreasing && copy[index]>0){copy[index]-=1}
     setSets(copy)
   },[sets])
+
+
   
   const exercisesList = () => {
     return exerciseValues.map((element:any, index:any) => {

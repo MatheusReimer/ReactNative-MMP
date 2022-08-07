@@ -14,7 +14,6 @@ export default function App() {
     return (
       <View style={styles.container}>
       <SafeAreaProvider>
-        <StatusBar   />
         <Navigation />
 
       </SafeAreaProvider>

@@ -2,6 +2,10 @@ import { View, Image } from "react-native";
 import styles from "./DefaultHeaderStyle";
 import QuickSand from "../GeneralStyles/Quicksand";
 import Sriracha from "../GeneralStyles/Sriracha";
+import { getAuth } from "firebase/auth";
+
+const email = getAuth().currentUser?.email;
+
 
 const DefaultHeader = () => {
   return (
@@ -15,7 +19,7 @@ const DefaultHeader = () => {
             flex={0}
           ></QuickSand>
           <Sriracha
-            text={"Matheus Reimer"}
+            text={email}
             fontsize={25}
             color={"white"}
             spacing={1}
