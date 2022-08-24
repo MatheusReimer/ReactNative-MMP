@@ -3,6 +3,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StyleSheet,View } from 'react-native';
 import useCachedResources from './hooks/useCachedResources';
 import Navigation from './navigation/RouterManager';
+import Toast from 'react-native-toast-message';
 
 
 export default function App() {
@@ -16,7 +17,6 @@ export default function App() {
       <SafeAreaProvider>
         <StatusBar   />
         <Navigation />
-
       </SafeAreaProvider>
       </View>
     );

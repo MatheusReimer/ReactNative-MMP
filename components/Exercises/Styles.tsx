@@ -17,6 +17,7 @@ const styles = StyleSheet.create(
         alignItems:"flex-end",
         justifyContent:"space-evenly",
         flexDirection:"row",
+        marginBottom:-40
         
     },
     btnTopsHidden:{
@@ -25,9 +26,10 @@ const styles = StyleSheet.create(
         marginBottom:10,
     },
     top:{
-        height:"15%",
+        height:"20%",
         alignItems:"center",
-        justifyContent:"center",
+        justifyContent:"flex-end",
+        flexDirection:"column",
     },
     weekdaySelection:{
         width:"100%",

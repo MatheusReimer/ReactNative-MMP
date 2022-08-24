@@ -21,32 +21,9 @@ const styles = StyleSheet.create(
       height:"10%",
       marginLeft:"10%",
     },
-    header2:{
-      alignItems:"center",
-      justifyContent:"space-evenly",
-      fontSize:30,
-      height:"10%",
-      flexDirection:"row"
-    },
-    chartBtn:{
-      borderRadius:5,
-      backgroundColor:"white",
-      width:100,
-      alignItems:"center",
-      justifyContent:"center",
-      paddingTop:10,
-      paddingBottom:10,
-      shadowColor: "#000000",
-      shadowOpacity: 0.8,
-      shadowRadius: 2,
-      shadowOffset: {
-        height: 1,
-        width: 0
-      },
-      elevation:15,
-      flexDirection:"row",
-    },
+
     graphs:{
+      marginTop:-30,
       alignItems:"center",
       justifyContent:"center",
       width:"100%",
@@ -54,8 +31,8 @@ const styles = StyleSheet.create(
     
     },
     graphsSelectorContainer:{
+      marginTop:-30,
       height:"100%",
-      marginTop:40,
       alignItems:"center",
       borderTopStartRadius:50,
       borderTopEndRadius:50,
@@ -78,6 +55,29 @@ const styles = StyleSheet.create(
       justifyContent:"space-evenly",
       marginTop:15,
     },
+    exercisesEach:{
+      flexDirection:"row",
+      width:"100%",
+      justifyContent:"flex-start",
+      marginLeft:15,
+      
+     },
+     itemsName:{
+      justifyContent:"flex-start",
+      width:"40%",
+      marginTop:8,
+     },
+     items:{
+      justifyContent:"flex-start",
+      width:"20%",
+      marginTop:8,
+     },
+    detailedItem:{
+      width:"100%",
+      marginLeft:15,
+      justifyContent:"flex-start",
+      flexDirection:"row",
+    }
   });
 
   export default styles;

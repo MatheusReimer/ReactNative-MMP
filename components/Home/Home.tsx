@@ -28,7 +28,6 @@ import { v4 as uuid } from "uuid";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import { Modal } from "../Modal";
 import Slider from "@react-native-community/slider";
-import useStateWithCallback from "../../hooks/useCallbackHook";
 
 export default function Home() {
   const month = [
@@ -84,6 +83,7 @@ export default function Home() {
     reps: string;
     sets: string;
   }
+
 
 
   const getUserDate = (isSplited: boolean) => {
