@@ -1,8 +1,7 @@
 import { Dimensions, StyleSheet } from "react-native";
 import React from 'react';
 import { View, Text } from 'react-native';
-
-
+import {COLORS} from "../GlobalStyle/globalStyle"
 
 const styles = StyleSheet.create(
     
@@ -13,12 +12,12 @@ const styles = StyleSheet.create(
         flexDirection:"column",
         height: '100%',
         width: Dimensions.get('window').width,
-        backgroundColor:"white",
+        backgroundColor:COLORS.mainColor,
     },
  
     weekDayContainer:{
       marginTop:10,
-      backgroundColor:"#128B3B",
+      backgroundColor:"#be5b16",
       width:Dimensions.get("window").width/8,
       height: Dimensions.get("window").width/8,
       alignItems:"center",
@@ -51,21 +50,23 @@ const styles = StyleSheet.create(
     exercises:{
    
     flexDirection:"column",
-    height:"75%",
+    height:"85%",
    
     },
     exercisesEach:{
-     margin:25,
+     marginLeft:25,
+     marginRight:25,
      width:"100%",
       flex:1,
       flexDirection:"row",
+    marginTop:20,
+    marginBottom:5,
     },
     hr:{
-      color: '##128B3B',
-      backgroundColor: '##128B3B',
+      color: COLORS.mainColor,
+      backgroundColor: COLORS.mainColor,
       height: 3,
-      borderColor : '##128B3B',
-      marginBottom:-30,
+      borderColor : COLORS.mainColor,
     },
     day:{
       width:"90%",
@@ -91,7 +92,7 @@ const styles = StyleSheet.create(
      },
      exercisesRegisterBtn:{
       marginBottom:15,
-      backgroundColor:"#68CB93",
+      backgroundColor:COLORS.mainColor,
       borderRadius:50,
       paddingLeft:35,
       paddingRight:35,
@@ -99,9 +100,7 @@ const styles = StyleSheet.create(
       paddingBottom:10,
       width:"60%"
      },
-     exerciseInput:{
 
-     },
      modalExercises:{
       width:"100%",
       marginTop:35,
@@ -173,23 +172,7 @@ const styles = StyleSheet.create(
     justifyContent:"space-evenly",
     flexDirection:"row",
   },
-  editBtn:{
-    backgroundColor:"white",
-    padding:8,
-    
-    borderRadius: 50,
-    shadowColor: "#000000",
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    shadowOffset: {
-      height: 1,
-      width: 0
-    },
-    elevation:15,
-    alignItems:"center",
-    justifyContent:"center",
-    flexDirection:"row",
-  },
+
 
   });
 

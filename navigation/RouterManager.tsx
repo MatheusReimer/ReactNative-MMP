@@ -10,6 +10,7 @@ import LoginScreen from "../screens/LoginScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import { StackNavigationProp } from '@react-navigation/stack';
+import { COLORS } from "../components/GlobalStyle/globalStyle";
 
 
 
@@ -25,7 +26,7 @@ type Props = {
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 
-const focusedColor = "#009F40";
+const focusedColor = COLORS.mainColor;
 const notFocusedColor = "#281400";
 
 
@@ -34,6 +35,7 @@ export default function Navigation({navigation}: Props) {
   return (
     <NavigationContainer>
     <Tab.Navigator
+    
       screenOptions={({ route }) => ({
         tabBarButton: [
           "RegisterPage",
@@ -48,7 +50,7 @@ export default function Navigation({navigation}: Props) {
         <Tab.Screen
           name="LoginPage"
           component={LoginScreen}
-          options={{  tabBarStyle: { display: "none" },tabBarShowLabel: false, headerShown:false}}
+          options={{  tabBarStyle: { display: "none" },tabBarShowLabel: false, headerShown:false,unmountOnBlur:true}}
         />
         <Tab.Screen
           name="HomePage"
@@ -64,6 +66,7 @@ export default function Navigation({navigation}: Props) {
                 color={focused ? focusedColor : notFocusedColor}
               />
             ),
+            unmountOnBlur:true
           }}
         />
         <Tab.Screen
@@ -80,6 +83,7 @@ export default function Navigation({navigation}: Props) {
                 color={focused ? focusedColor : notFocusedColor}
               />
             ),
+            unmountOnBlur:true
           }}
         />
         <Tab.Screen
@@ -89,6 +93,7 @@ export default function Navigation({navigation}: Props) {
             title: "Exercises",
             tabBarShowLabel: false,
             headerShown: false,
+            
             tabBarIcon: ({ focused, color }) => (
               <AntDesign
                 name="linechart"
@@ -96,6 +101,7 @@ export default function Navigation({navigation}: Props) {
                 color={focused ? focusedColor : notFocusedColor}
               />
             ),
+            unmountOnBlur:true
           }}
         />
         <Tab.Screen

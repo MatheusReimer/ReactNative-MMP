@@ -14,6 +14,7 @@ import QuickSand from "../GeneralStyles/Quicksand";
 import Sriracha from "../GeneralStyles/Sriracha";
 import styles from "./Styles";
 import { v4 as uuid } from "uuid";
+import { COLORS } from "../GlobalStyle/globalStyle";
 
 interface Data {
   exercise: string;
@@ -75,9 +76,9 @@ export default function Exercises() {
                 maximumValue={15}
                 value={filteredList[index].sets}
                 step={1}
-                minimumTrackTintColor="green"
-                maximumTrackTintColor="green"
-                thumbTintColor="black"
+                minimumTrackTintColor={COLORS.mainColor}
+                maximumTrackTintColor={COLORS.mainColor}
+                thumbTintColor={COLORS.mainColor}
                 onValueChange={(value) => {
                   handleChange(value, "sets", index);
                   setIsChanged(true);
@@ -105,9 +106,9 @@ export default function Exercises() {
                 maximumValue={15}
                 value={filteredList[index].reps}
                 step={1}
-                minimumTrackTintColor="green"
-                maximumTrackTintColor="green"
-                thumbTintColor="black"
+                minimumTrackTintColor={COLORS.mainColor}
+                maximumTrackTintColor={COLORS.mainColor}
+                thumbTintColor={COLORS.mainColor}
                 onValueChange={(value) => {
                   handleChange(value, "reps", index);
                   setIsChanged(true);
@@ -133,7 +134,7 @@ export default function Exercises() {
               <MaterialCommunityIcons
                 name="delete-circle"
                 size={35}
-                color="black"
+                color={COLORS.secColor}
               />
             </TouchableOpacity>
           </View>
@@ -205,11 +206,84 @@ export default function Exercises() {
     { label: "Inclined Bench Press", value: "Inclined Bench Press" },
     { label: "Row", value: "Row" },
     { label: "Conventional Deadlift", value: "Conventional Deadlift" },
-    { label: "Sumo Deadlift", value: "Sumo Deadlift" },
     { label: "Pullup", value: "Pullup" },
     { label: "Overhead Press", value: "Overhead Press" },
     { label: "Hip Thrust", value: "Hip Thrust" },
     { label: "Squats", value: "Squats" },
+    {label:"Lunge",value:"Lunge"},
+    {label:"Conven.Deadlift", value:"Conven.Deadlift"},
+    {label:"Sumo Deadlift", value:"Sumo Deadlift"},
+    {label:"Leg Extension", value:"Leg Extension"},
+    {label:"Calf Raise",value:"Calf Raise"},
+    {label:"Hip Adductor", value:"Hip Adductor"},
+    {label:"Chest Fly", value:"Chest Fly"},
+    {label:"Push Up",value:"Push Up"},
+    {label:"Pull Up",value:"Pull Up"},
+    {label:"Bent-over Row", value:"Bent-over Row"},
+    {label:"Upright Row",value:"Upright Row"},
+    {label:"Shoulder Press", value:"Shoulder Press"},
+    {label:"Lateral Raise", value:"Lateral Raise"},
+    {label:"Shoulder Shrug", value:"Shoulder Shrug"},
+    {label:"Pushdown",value:"Pushdown"},
+    {label:"Dips",value:"Dips"},
+    {label:"Triceps Extension", value:"Triceps Extension"},
+    {label:"Biceps Curl", value:"Biceps Curl"},
+    {label:"Crunch", value:"Crunch"},
+    {label:"Leg Raise", value: "Leg Raise"},
+    {label:"Back Extension", value:"Back Extension"},
+    {label:"Bulgar", value:"Bulgar"},
+    {label:"Stiff",value:"Stiff"},
+    {label:"Parascapular Exercise", value:"Parascapular Exercise"},
+    {label:"Ankle Flexion", value:"Ankle Flexion"},
+    {label:"Forward Lunge", value:"Forward Lunge"},
+    {label:"Agility Ladder", value:"Agility Ladder"},
+    {label:"Bodyweight Squat", value:"Bodyweight Squat"},
+    {label:"Asynchronous Waves", value:"Asynchronous Waves"},
+    {label:"Bird Dog", value:"Bird Dog"},
+    {label:"Cobra Exercise", value:"Cobra Exercise"},
+    {label:"Decline Plank", value:"Decline Plank"},
+    {label:"Bridge", value:"Bridge"},
+    {label:"Hip Rotation", value:"Hip Rotation"},
+    {label:"Inverted Flyer", value:"Inverted Flyer"},
+    {label: "Medicine Ball", value:"Medicine Ball"},
+    {label:"Pull Over",value:"Pull Over"},
+    {label:"Roll Out",value:"Roll Out"},
+    {label:"Russian Twist",value:"Russian Twist"},
+    {label:"Seated Crunch",value:"Seated Crunch"},
+    {label:"Side Plank", value:"Side Plank"},
+    {label:"Stability Ball", value:"Stability Ball"},
+    {label:"Sit-Ups", value:"Sit-Ups"},
+    {label:"Shouder Rotation", value:"Shoulder Rotation"},
+    {label:"Trunk Rotation", value:"Trunk Rotation"},
+    {label:"Hip Adduction", value:"Hip Adduction"},
+    {label:"Reverse Marches", value:"Reverses Marches"},
+    {label:"Pelvic Tilt", value:"Pelvic Tilt"},
+    {label:"Front Rollout", value:"Front Rollout"},    
+    {label:"Bent-Over Row", value:"Bent-Over Row"},
+    {label:"Bicep Curl", value:"Bicep Curl"},
+    {label:"Chin-Ups",value:"Chin-Ups"},
+    {label:"Hammer Curl", value:"Hammer Curl"},
+    {label:"Push-Ups", value:"Push-Ups"},
+    {label:"Seated Bicep Curl", value:"Seated Bicep Curl"},
+    {label:"Shoulder Press", value:"Shoulder Press"},
+    {label:"Overhead Press", value:"Overhead Press"},
+    {label:"Tricep Extension", value:"Tricep Extension"},
+    {label:"Triceps Kickback",value:"Triceps Kickback"},
+    {label:"Triceps Pressdown", value:"Triceps Pressdown"},
+    {label:"Triceps Pushdown",value:"Triceps Pushdown"},
+    {label:"Wrist Curl", value:"Wrist Curl"},
+    {label:"Single-arm Row", value:"Single-arm Row"},
+    {label:"Glute Bridge", value:"Glute Bridge"},
+    {label:"Hip Bridge", value:"Hip Bridge"},
+    {label:"Romanian Deadlift", value:"Romanian Deadlift"},
+    {label:"Seated Leg Press", value:"Seated Leg Press"},
+    {label:"Squat Jump", value:"Squat Jump"},
+    {label:"Step Up", value:"Step Up"},
+    {label:"Declined Bench Press", value:"Declined Bench Press"},
+    {label:"Cable Flyes", value:"Cable Flyes"},
+    {label:"Front Raises", value:"Front Raises"},
+    
+
   ]);
 
 
@@ -336,7 +410,7 @@ export default function Exercises() {
             onPress={() => acceptChanges()}
           >
             <QuickSand
-              color={"green"}
+              color={COLORS.mainColor}
               flex={0}
               fontsize={20}
               text={"Save"}
@@ -352,7 +426,7 @@ export default function Exercises() {
       <View style={styles.top}>
         <View>
           <Sriracha
-            color={"green"}
+            color={COLORS.mainColor}
             fontsize={30}
             spacing={2}
             text={"Your plans"}
@@ -360,6 +434,7 @@ export default function Exercises() {
         </View>
         <View style={{ width: "60%", justifyContent: "center" }}>
           <DropDownPicker
+            maxHeight={350}
             open={open}
             value={value}
             items={items}
@@ -374,7 +449,9 @@ export default function Exercises() {
             theme="LIGHT"
             multiple={true}
             mode="SIMPLE"
-            textStyle={{ color: "green" }}
+            textStyle={{ color: COLORS.mainColor }}
+            searchable={true}
+            searchPlaceholder={"Search..."}
           />
         </View>
       </View>
@@ -382,7 +459,7 @@ export default function Exercises() {
         <TouchableOpacity onPress={() => setCurrentWeekDay("Sun")}>
           {currentWeekday === "Sun" ? (
             <QuickSand
-              color={"green"}
+              color={COLORS.mainColor}
               flex={0}
               fontsize={20}
               text={"Sun"}
@@ -399,7 +476,7 @@ export default function Exercises() {
         <TouchableOpacity onPress={() => setCurrentWeekDay("Mon")}>
           {currentWeekday === "Mon" ? (
             <QuickSand
-              color={"green"}
+              color={COLORS.mainColor}
               flex={0}
               fontsize={20}
               text={"Mon"}
@@ -416,7 +493,7 @@ export default function Exercises() {
         <TouchableOpacity onPress={() => setCurrentWeekDay("Tue")}>
           {currentWeekday === "Tue" ? (
             <QuickSand
-              color={"green"}
+              color={COLORS.mainColor}
               flex={0}
               fontsize={20}
               text={"Tue"}
@@ -433,7 +510,7 @@ export default function Exercises() {
         <TouchableOpacity onPress={() => setCurrentWeekDay("Wed")}>
           {currentWeekday === "Wed" ? (
             <QuickSand
-              color={"green"}
+              color={COLORS.mainColor}
               flex={0}
               fontsize={20}
               text={"Wed"}
@@ -450,7 +527,7 @@ export default function Exercises() {
         <TouchableOpacity onPress={() => setCurrentWeekDay("Thu")}>
           {currentWeekday === "Thu" ? (
             <QuickSand
-              color={"green"}
+              color={COLORS.mainColor}
               flex={0}
               fontsize={20}
               text={"Thu"}
@@ -467,7 +544,7 @@ export default function Exercises() {
         <TouchableOpacity onPress={() => setCurrentWeekDay("Fri")}>
           {currentWeekday === "Fri" ? (
             <QuickSand
-              color={"green"}
+              color={COLORS.mainColor}
               flex={0}
               fontsize={20}
               text={"Fri"}
@@ -484,7 +561,7 @@ export default function Exercises() {
         <TouchableOpacity onPress={() => setCurrentWeekDay("Sat")}>
           {currentWeekday === "Sat" ? (
             <QuickSand
-              color={"green"}
+              color={COLORS.mainColor}
               flex={0}
               fontsize={20}
               text={"Sat"}

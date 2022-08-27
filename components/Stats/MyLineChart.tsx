@@ -3,6 +3,7 @@ import { Dimensions, ToastAndroid } from "react-native";
 import React from "react";
 import Toast from 'react-native-toast-message';
 import {Svg, Text as TextSVG} from 'react-native-svg';
+import { COLORS } from "../GlobalStyle/globalStyle";
 
 export default function MyLineChart(props:any) {
 
@@ -62,9 +63,9 @@ React.useEffect(()=>{
       );
     }}
     chartConfig={{
-      backgroundColor: "#128B3B",
-      backgroundGradientFrom: "#128B3B",
-      backgroundGradientTo: "#128B3B",
+      backgroundColor: COLORS.mainColor,
+      backgroundGradientFrom: COLORS.mainColor,
+      backgroundGradientTo: COLORS.mainColor,
       decimalPlaces: 2, // optional, defaults to 2dp
       color: (opacity = 0.1) => `rgba(255,255,255, ${opacity})`,
       labelColor: (opacity = 0.1) => `rgba(255,255,255, ${opacity})`,

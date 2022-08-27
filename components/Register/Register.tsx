@@ -175,7 +175,7 @@ export default function Register({ navigation }: { navigation: any }) {
 
         <View style={styles.logoName}>
           <Sriracha
-            text={"MMP"}
+            text={"TB"}
             fontsize={30}
             color={"white"}
             spacing={0.1}

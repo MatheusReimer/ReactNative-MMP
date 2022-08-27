@@ -18,10 +18,12 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { List } from "realm";
 
 export default function Stats() {
-  const [labelTrimester, setLabelTrimester] = React.useState<string[]>([]);
+
   const [labelSemester, setLabelSemester] = React.useState<string[]>([]);
   const [currentLabel, setCurrentLabel] = React.useState<string[]>([]);
   const [sixMonthsVolume, setSixMonthsVolume] = React.useState<number[]>([]);
+
+
   const [dataToShow, setDataToShow] = React.useState<PresentableData[]>([]);
   const months = [
     "Jan",
@@ -38,12 +40,7 @@ export default function Stats() {
     "Dec",
   ];
   const [dbData, setdbData] = React.useState<Data[]>([]);
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("Trimester");
-  const [items, setItems] = React.useState([
-    { label: "Trimester", value: "Trimester" },
-    { label: "Semester", value: "Semester" },
-  ]);
+
 
   const [openWeek, setOpenWeek] = React.useState(false);
   const [valueWeek, setValueWeek] = React.useState("Monday");
@@ -74,7 +71,6 @@ export default function Stats() {
   }
   interface PresentableData {
     day: string;
-
     name: string;
     volume: string;
     month:string
@@ -83,12 +79,7 @@ export default function Stats() {
   const monthVolume = () => {
     let arrOfVolume: number[] = [];
     let arrOfObjects: PresentableData[] = [];
-    if (sixMonthsVolume.length > 0) {
-      arrOfVolume = [...sixMonthsVolume];
-      arrOfObjects = [...dataToShow];
-    } else {
-      arrOfVolume = [0, 0, 0, 0, 0, 0];
-    }
+    arrOfVolume = [0, 0, 0, 0, 0, 0]; 
     dbData.forEach((element2) => {
       if (
         labelSemester.includes(element2.month) &&
@@ -110,11 +101,10 @@ export default function Stats() {
         });
       }
     });
+
     setDataToShow(arrOfObjects);
     setSixMonthsVolume(arrOfVolume);
   };
-
-  const getVolumeWeekDay = () => {};
 
   const settingDates = () => {
     let today = new Date();
@@ -128,10 +118,10 @@ export default function Stats() {
     }
     setCurrentLabel(arrS);
     setLabelSemester(arrS);
-    setLabelTrimester(arrT);
   };
 
   const list = () => {
+    
     return dataToShow.map((c, index) => {
       return (
         <View style={styles.exercisesEach} key={index}>
@@ -193,7 +183,7 @@ export default function Stats() {
           weight: doc.data().data[i].weight,
         });
       }
-      setdbData([
+      setdbData((dbData)=>[...dbData,
         {
           id: doc.data().id,
           day: doc.data().day,
@@ -214,6 +204,28 @@ export default function Stats() {
   React.useEffect(() => {
     monthVolume();
   }, [dbData, valueWeek]);
+
+  const [adj, setAdj] = React.useState([
+    "Health freak",
+    "Health nut",
+    "Health enthusiast",
+    "Fitness fanatic",
+    "Gym freak",
+    "Gym fanatic",
+    "Fitness freak",
+    "Sport nut",
+    "Fitness Beast",
+    "Gym Beast",
+    "Gym nut",
+    "Gym addict",
+    "Gymgoer",
+    "Gym rat",
+    " Gym junkie",
+    "Buffed athlete",
+    "Muscle monster",
+    "Iron freak",
+  ]);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -224,7 +236,7 @@ export default function Stats() {
           flex={0}
         ></QuickSand>
         <Sriracha
-          text={"Matheus Reimer"}
+          text={adj[Math.floor(Math.random() * adj.length)]}
           fontsize={25}
           color={"white"}
           spacing={1}
@@ -238,15 +250,6 @@ export default function Stats() {
         }}
       >
         <View style={{ width: 140 }}>
-          <DropDownPicker
-            multiple={false}
-            open={open}
-            value={value}
-            items={items}
-            setOpen={setOpen}
-            setValue={setValue}
-            setItems={setItems}
-          />
         </View>
         <View style={{ width: 140 }}>
           <DropDownPicker
@@ -312,12 +315,11 @@ export default function Stats() {
             ></QuickSand>
             </View>
           </View>
-          <ScrollView
-            contentContainerStyle={{ flexGrow: 1, alignItems: "center" }}
-            persistentScrollbar={true}
-          >
+         
+          <ScrollView>
             {list()}
           </ScrollView>
+  
         </View>
       </View>
     </View>

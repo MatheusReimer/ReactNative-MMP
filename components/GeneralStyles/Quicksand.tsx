@@ -1,13 +1,26 @@
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 import {
-    useFonts,
-    Quicksand_300Light,
-    Quicksand_400Regular,
-    Quicksand_500Medium,
-    Quicksand_600SemiBold,
-    Quicksand_700Bold,
-  } from '@expo-google-fonts/quicksand';
+  useFonts,
+  Montserrat_100Thin,
+  Montserrat_100Thin_Italic,
+  Montserrat_200ExtraLight,
+  Montserrat_200ExtraLight_Italic,
+  Montserrat_300Light,
+  Montserrat_300Light_Italic,
+  Montserrat_400Regular,
+  Montserrat_400Regular_Italic,
+  Montserrat_500Medium,
+  Montserrat_500Medium_Italic,
+  Montserrat_600SemiBold,
+  Montserrat_600SemiBold_Italic,
+  Montserrat_700Bold,
+  Montserrat_700Bold_Italic,
+  Montserrat_800ExtraBold,
+  Montserrat_800ExtraBold_Italic,
+  Montserrat_900Black,
+  Montserrat_900Black_Italic,
+} from '@expo-google-fonts/montserrat';
 import { useState,useEffect,useCallback } from 'react';
 import { Text } from 'react-native';
 
@@ -20,7 +33,7 @@ const QuickSand =  ({text,fontsize,color,flex}:{text:any,fontsize:any,color:any,
     (async () => {
       try {
         await SplashScreen.preventAutoHideAsync();
-        await Font.loadAsync({ Quicksand_700Bold});
+        await Font.loadAsync({ Montserrat_400Regular});
       }
       catch {
         // handle error
@@ -42,7 +55,7 @@ const QuickSand =  ({text,fontsize,color,flex}:{text:any,fontsize:any,color:any,
   }
 
   return (
-    <Text style={{fontFamily: 'Quicksand_700Bold',fontSize:fontsize, color:color,flex:flex}}>{text}</Text>
+    <Text style={{fontFamily: 'Montserrat_400Regular',fontSize:fontsize, color:color,flex:flex}}>{text}</Text>
     );
 }
 

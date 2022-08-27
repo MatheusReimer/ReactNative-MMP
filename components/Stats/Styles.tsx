@@ -1,6 +1,7 @@
 import { Dimensions, StyleSheet } from "react-native";
 import React from 'react';
 import { View, Text } from 'react-native';
+import { COLORS } from "../GlobalStyle/globalStyle";
 
 
 
@@ -11,7 +12,7 @@ const styles = StyleSheet.create(
     flexDirection:"column",
     height: '100%',
     width: Dimensions.get('window').width,
-    backgroundColor:"#128B3B",},
+    backgroundColor:COLORS.mainColor},
     
     header:{
       marginTop:30,
@@ -37,10 +38,11 @@ const styles = StyleSheet.create(
       borderTopStartRadius:50,
       borderTopEndRadius:50,
       backgroundColor:"white",
+      flex:1,
     
     },
     graphSelectorHeader:{
-      backgroundColor:"#128B3B",
+      backgroundColor:COLORS.mainColor,
       borderBottomStartRadius:10,
       borderBottomEndRadius:10,
       alignItems:"center",
@@ -48,11 +50,6 @@ const styles = StyleSheet.create(
     },
     columns:{
       height:"100%",
-      flex: 1,
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      alignItems: 'flex-end',
-      justifyContent:"space-evenly",
       marginTop:15,
     },
     exercisesEach:{
@@ -64,13 +61,13 @@ const styles = StyleSheet.create(
      },
      itemsName:{
       justifyContent:"flex-start",
-      width:"40%",
-      marginTop:8,
+      width:"50%",
+      marginTop:20,
      },
      items:{
       justifyContent:"flex-start",
-      width:"20%",
-      marginTop:8,
+      width:"16.66666667%",
+      marginTop:20,
      },
     detailedItem:{
       width:"100%",

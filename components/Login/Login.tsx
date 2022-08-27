@@ -55,14 +55,22 @@ export default function Login({ navigation }: { navigation: any }) {
   const showToastFail = () => {
     ToastAndroid.show("Ops, an error ocurred!", ToastAndroid.SHORT);
   };
+  const failToLogin = () => {
+    ToastAndroid.show("E-mail or password incorrect!", ToastAndroid.LONG);
+  };
 
   const handleLogin = () => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
-        if (user != null) console.log("Logged in with", user.email);
+        if (user != null) {
+        console.log("Logged in with", user.email);
         setIsLogged(true)
+        }
+        else{
+          failToLogin()
+        }
       })
       .catch((error) => {
         if (error.code == "auth/email-already-in-use") {
@@ -75,7 +83,7 @@ export default function Login({ navigation }: { navigation: any }) {
           alert("The password is too weak.");
         }
         else{
-            console.log(error)
+          failToLogin()
         }
       });
   };
@@ -96,7 +104,7 @@ export default function Login({ navigation }: { navigation: any }) {
       >
         <View style={styles.imageContainer}>
           <Image
-            source={require("../../assets/images/logo.png")}
+            source={require("../../assets/images/logo2.png")}
             style={styles.logo}
           ></Image>
         </View>
@@ -184,7 +192,7 @@ export default function Login({ navigation }: { navigation: any }) {
         </View>
         <View style={styles.logoName}>
           <Sriracha
-            text={"MMP"}
+            text={"TB"}
             fontsize={30}
             color={"white"}
             spacing={0.1}

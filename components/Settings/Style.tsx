@@ -16,12 +16,14 @@ const styles = StyleSheet.create(
     headerSettings:
     {
       width:"100%",
+      height:"10%",
       alignItems:"center",
+      justifyContent:"flex-end",
     },
     btnContainer:{
       width:"100%",
       alignItems:"center",
-      justifyContent:"space-between",
+      justifyContent:"space-evenly",
       flexDirection:"column",
       flex:1,
       marginBottom:30,

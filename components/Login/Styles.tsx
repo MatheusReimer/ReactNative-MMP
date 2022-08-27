@@ -1,4 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
+import { COLORS } from "../GlobalStyle/globalStyle";
 
 
 
@@ -8,7 +9,7 @@ const styles = StyleSheet.create(
    {
     fullContainer:{
         height:"100%",
-        backgroundColor:"#128B3B"
+        backgroundColor:COLORS.mainColor
     },
     touchable:{
         height:"100%",
@@ -17,17 +18,16 @@ const styles = StyleSheet.create(
     imageContainer:{
         height:"40%",
         alignItems:"center",
-     
         justifyContent:"center",
     },
     logo:{
-
         maxWidth:300,
         maxHeight:300,
         resizeMode:"contain",
+        justifyContent:"flex-end",
     },
     headerContainer:{
-
+        
         alignItems:"flex-start",
         height:"10%",
         marginLeft:"10%",
@@ -79,7 +79,7 @@ const styles = StyleSheet.create(
       },
       signInBtn:{
         marginBottom:15,
-        backgroundColor:"#68CB93",
+        backgroundColor:COLORS.secColor,
         borderRadius:50,
         paddingLeft:35,
         paddingRight:35,

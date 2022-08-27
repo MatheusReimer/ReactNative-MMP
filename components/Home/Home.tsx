@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   BackHandler,
+  Dimensions,
 } from "react-native";
 import styles from "./Styles";
 import QuickSand from "../GeneralStyles/Quicksand";
@@ -28,6 +29,7 @@ import { v4 as uuid } from "uuid";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import { Modal } from "../Modal";
 import Slider from "@react-native-community/slider";
+import { COLORS } from "../GlobalStyle/globalStyle";
 
 export default function Home() {
   const month = [
@@ -108,7 +110,8 @@ export default function Home() {
       month: todayMonth,
       id: unique_id,
       userEmail: email,
-      data:exerciseValues
+      data:exerciseValues,
+      weekDay: todayWeekDay
     });
     }else{
       console.log(idForEdit)
@@ -117,7 +120,8 @@ export default function Home() {
         month: todayMonth,
         id: unique_id,
         userEmail: email,
-        data:exerciseValues
+        data:exerciseValues,
+        weekDay:todayWeekDay
       });
     }
     await getUserFullData()
@@ -298,7 +302,6 @@ export default function Home() {
   const notSplited = getUserDate(false);
   const [todayWeekDay, setTodayWeekDay] = React.useState(getWeekDay(new Date(notSplited.toString())));
 
-
   
   React.useEffect(() => {
     getUserFullData();
@@ -309,8 +312,6 @@ export default function Home() {
     setWeekDayExercises([])
     updatingStates();
   },[dbExercises])
-
-
 
 
   React.useEffect(() => {
@@ -324,7 +325,7 @@ export default function Home() {
         <Calendar
           maxDate={calendarMaxDate()}
           style={styles.calendarStyle}
-          theme={{ arrowColor: "green", todayTextColor: "green" }}
+          theme={{ arrowColor: COLORS.mainColor, todayTextColor:COLORS.mainColor}}
           onDayPress={async (day) => {
             let x = new Date(day.dateString);
             await setTodayWeekDay(weekDay[x.getUTCDay()]);
@@ -367,17 +368,6 @@ export default function Home() {
                 ></QuickSand>
               }
             />
-            <TouchableOpacity
-              style={{
-                position: "absolute",
-                top: 0,
-                right: 0,
-                backgroundColor: "white",
-              }}
-              onPress={()=>{setIsEdition(false);setIsModalVisible(() => !isModalVisible)}}
-            >
-              <Entypo name="plus" size={24}></Entypo>
-            </TouchableOpacity>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }} persistentScrollbar={true}>
             <Modal.Body>
           
@@ -392,118 +382,78 @@ export default function Home() {
                       ></QuickSand>
                       <View
                         style={{
-                          height: 20,
+                          height: 30,
                           justifyContent: "space-between",
                           flexDirection: "row",
                         }}
                       >
-                        <Text>Sets:</Text>
-                        <TextInput
-                          style={{
-                            backgroundColor: "#80ff80",
-                            width: 50,
-                            borderRadius: 25,
-                            alignItems: "center",
-                            justifyContent: "center",
-                            textAlign: "center",
-                          }}
-                          keyboardType="numeric"
-                          onChangeText={(text) => {
-                            handleChange(Number(text), "sets", index);
-                          }}
-                        >
-                          {exerciseValues[index].sets}
-                        </TextInput>
+                      <QuickSand color={"black"} flex={0} fontsize={20} text={"Sets:"}></QuickSand>
+                      <QuickSand color={"black"} flex={0} fontsize={20} text={exerciseValues[index].sets}></QuickSand>
+
                       </View>
                       <Slider
-                        style={{ width: 200, height: 40 }}
+                        style={{ width: Dimensions.get("window").width-50, height: 50 }}
                         minimumValue={0}
                         maximumValue={15}
                         value={exerciseValues[index].sets}
                         step={1}
-                        minimumTrackTintColor="green"
-                        maximumTrackTintColor="green"
-                        thumbTintColor="black"
+                        minimumTrackTintColor="#89be16"
+                        maximumTrackTintColor="#89be16"
+                        thumbTintColor={COLORS.secColor}
                         onValueChange={(value) => {
                           handleChange(value, "sets", index);
                         }}
                       />
                       <View
                         style={{
-                          height: 20,
+                          height: 30,
                           justifyContent: "space-between",
                           flexDirection: "row",
                         }}
                       >
-                        <Text>Reps:</Text>
-                        <TextInput
-                          style={{
-                            backgroundColor: "#80ff80",
-                            width: 50,
-                            borderRadius: 25,
-                            alignItems: "center",
-                            justifyContent: "center",
-                            textAlign: "center",
-                          }}
-                          keyboardType="numeric"
-                          onChangeText={(text) => {
-                            handleChange(Number(text), "reps", index);
-                          }}
-                        >
-                          {exerciseValues[index].reps}
-                        </TextInput>
+                      <QuickSand color={"black"} flex={0} fontsize={20} text={"Reps:"}></QuickSand>
+                      <QuickSand color={"black"} flex={0} fontsize={20} text={exerciseValues[index].reps}></QuickSand>
+
                       </View>
                       <Slider
-                        style={{ width: 200, height: 40 }}
+                        style={{ width: Dimensions.get("window").width-50, height: 60 }}
                         minimumValue={0}
                         maximumValue={50}
                         value={exerciseValues[index].reps}
                         step={1}
-                        minimumTrackTintColor="green"
-                        maximumTrackTintColor="green"
-                        thumbTintColor="black"
+                        minimumTrackTintColor="#89be16"
+                        maximumTrackTintColor="#89be16"
+                        thumbTintColor={COLORS.secColor}
                         onValueChange={(value) => {
                           handleChange(value, "reps", index);
                         }}
                       />
                       <View
                         style={{
-                          height: 20,
+                          height: 30,
                           justifyContent: "space-between",
                           flexDirection: "row",
                         }}
                       >
-                        <Text>Weight:</Text>
-                        <TextInput
-                          style={{
-                            backgroundColor: "#80ff80",
-                            width: 50,
-                            borderRadius: 25,
-                            alignItems: "center",
-                            justifyContent: "center",
-                            textAlign: "center",
-                          }}
-                          keyboardType="numeric"
-                          onChangeText={(text) => {
-                            handleChange(Number(text), "weight", index);
-                          }}
-                        >
-                          {exerciseValues[index].weight}
-                        </TextInput>
+                      <QuickSand color={"black"} flex={0} fontsize={20} text={"Weight:"}></QuickSand>
+                      <QuickSand color={"black"} flex={0} fontsize={20} text={exerciseValues[index].weight}></QuickSand>
+                      
                       </View>
                       <Slider
-                        style={{ width: 200, height: 40 }}
+                        style={{ width: Dimensions.get("window").width-50, height: 60 }}
                         minimumValue={0}
                         maximumValue={500}
                         value={exerciseValues[index].weight}
-                        step={1}
-                        minimumTrackTintColor="green"
-                        maximumTrackTintColor="green"
-                        thumbTintColor="black"
+                        step={2}
+                        minimumTrackTintColor="#89be16"
+                        maximumTrackTintColor="#89be16"
+                        thumbTintColor={COLORS.secColor}
                         onValueChange={(value) => {
                           handleChange(value, "weight", index);
                         }}
+
                       />
+
                     </View>
                   );
                 })}
@@ -517,7 +467,7 @@ export default function Home() {
                   onPress={() => setIsModalVisible(() => !isModalVisible)}
                 >
                   <QuickSand
-                    color={"red"}
+                    color={COLORS.secColor}
                     flex={0}
                     fontsize={20}
                     text={"Cancel"}
@@ -528,7 +478,7 @@ export default function Home() {
                   onPress={()=>addToDb()}
                 >
                   <QuickSand
-                    color={"green"}
+                    color={COLORS.mainColor}
                     flex={0}
                     fontsize={20}
                     text={"Accept"}
@@ -542,33 +492,33 @@ export default function Home() {
           <View style={styles.mainHeaders}>
             <QuickSand
               fontsize={13}
-              color={"black"}
+              color={COLORS.mainColor}
               text="Exercise Name"
               flex={0}
             ></QuickSand>
             <QuickSand
               fontsize={13}
-              color={"#008037"}
+              color={COLORS.mainColor}
               text="Reps"
               flex={0}
             ></QuickSand>
             <QuickSand
               fontsize={13}
-              color={"#008037"}
+              color={COLORS.mainColor}
               text="Weight"
               flex={0}
             ></QuickSand>
             <QuickSand
               fontsize={13}
-              color={"#008037"}
+              color={COLORS.mainColor}
               text="Sets"
               flex={0}
             ></QuickSand>
           </View>
           <View style={styles.exercises}>
             <View style={styles.hr}></View>
-            <SafeAreaView>
-              <ScrollView contentContainerStyle={{ flexGrow: 1 }} persistentScrollbar={true}>
+            <View>
+              <ScrollView contentContainerStyle={{ flexGrow: 1 }}  bounces={true}>
                 {registerExerciseBtn ? (
                   <View style={styles.addRegisterBtn}>
                     <TouchableOpacity
@@ -581,16 +531,17 @@ export default function Home() {
                         color={"white"}
                         flex={0}
                         fontsize={18}
-                        text={"How was your train?"}
+                        text={"Register today's train"}
                       ></QuickSand>
                     </TouchableOpacity>
                   </View>
                 ) : (
+                  
                   dbExercises.map((c) => {
                     return c.exeriseData.map((d,index2) => {
                       return (
                         
-                        <View style={styles.exercisesEach} key={index2}>
+                        <TouchableOpacity style={styles.exercisesEach} key={index2} onPress={()=>{setIsEdition(true);setIsModalVisible(() => !isModalVisible)}}>
                           
                           <QuickSand
                             fontsize={12}
@@ -616,14 +567,14 @@ export default function Home() {
                             color={"black"}
                             flex={0.9}
                           ></QuickSand>
-                        </View>
+                        </TouchableOpacity>
                       );
                     });
+                    
                   })
                 )}
               </ScrollView>
-            </SafeAreaView>
-            {registerExerciseBtn ? <></> : <TouchableOpacity style={{alignItems:"flex-end",justifyContent:"center",height:"30%",marginRight:15  }} onPress={()=>{setIsEdition(true);setIsModalVisible(() => !isModalVisible)}}><Feather name="edit" size={24} color="black" style={styles.editBtn} /></TouchableOpacity> }
+            </View>
           </View>
         </View>
       </View>

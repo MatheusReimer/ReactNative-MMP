@@ -4,7 +4,7 @@ const styles = StyleSheet.create(
 {
 header:{
 
-    backgroundColor:"#128B3B",
+    backgroundColor:"#89be16",
     height: '50%',
     borderBottomStartRadius:(Dimensions.get("window").height/8),
     borderBottomEndRadius:(Dimensions.get("window").height/8),
